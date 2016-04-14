@@ -31,25 +31,25 @@ tweerSt=lapply(tweetsearch,function(t)t$getText())
 
 tryTolower = function(x)
 {
-y = NA
-try_error = tryCatch(tolower(x), error = function(e) e)
-if (!inherits(try_error, "error"))
-y = tolower(x)
-return(y)
+  y = NA
+  try_error = tryCatch(tolower(x), error = function(e) e)
+  if (!inherits(try_error, "error"))
+  y = tolower(x)
+  return(y)
 }
 
 clean=function(t){
-t=gsub('[[:punct:]]','',t)
-t=gsub('[[:cntrl:]]','',t)
-t=gsub('\\d+','',t)
-t=gsub('[[:digit:]]','',t)
-t=gsub('@\\w+','',t)
-t=gsub('http\\w+','',t)
-t=gsub("^\\s+|\\s+$", "", t)
-t=sapply(t,function(x) tryTolower(x))
-t=str_split(t," ")
-t=unlist(t)
-return(t)
+    t=gsub('[[:punct:]]','',t)
+    t=gsub('[[:cntrl:]]','',t)
+    t=gsub('\\d+','',t)
+    t=gsub('[[:digit:]]','',t)
+    t=gsub('@\\w+','',t)
+    t=gsub('http\\w+','',t)
+    t=gsub("^\\s+|\\s+$", "", t)
+    t=sapply(t,function(x) tryTolower(x))
+    t=str_split(t," ")
+    t=unlist(t)
+    return(t)
 }
 cleantweet=lapply(tweerSt,function(x) clean(x))
 head(cleantweet,5)
@@ -59,10 +59,10 @@ poswords=scan('positive-words.txt', what='character', comment.char=';')
 negativewords=scan('negative-words.txt', what='character', comment.char=';')
 
 sentimentcount=function(tweeter){
-positive.match=match(tweeter,poswords)
-positive.match=!is.na(positive.match)
-positive.score=sum(positive.match)
-return(positive.score)
+    positive.match=match(tweeter,poswords)
+    positive.match=!is.na(positive.match)
+    positive.score=sum(positive.match)
+    return(positive.score)
 }
 
 pos.scores=lapply(cleantweet, function(x) sentimentcount(x))
@@ -70,7 +70,7 @@ pos.scores=lapply(cleantweet, function(x) sentimentcount(x))
 positive.counts=0
 for(i in 1:length(pos.scores)){
 
-positive.counts=positive.counts+pos.scores[[i]]
+    positive.counts=positive.counts+pos.scores[[i]]
 
 }
 
@@ -78,9 +78,9 @@ positive.counts
 
 posdata.vector=data.frame(NULL)
 for(i in 1:length(cleantweet)){
-postest=match(cleantweet[[i]],poswords)
-poswordstest=cleantweet[[i]][!is.na(postest)]
-posdata.vector=c(poswordstest,posdata.vector)
+    postest=match(cleantweet[[i]],poswords)
+    poswordstest=cleantweet[[i]][!is.na(postest)]
+    posdata.vector=c(poswordstest,posdata.vector)
 }
 head(posdata.vector,10)
 postable=data.frame(table(unlist(posdata.vector)))
