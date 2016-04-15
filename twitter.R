@@ -88,7 +88,11 @@ postablefilter=postable[which(postable$Freq > 15),]
 postablefilter[1]=lapply(postablefilter[1],as.character)
 
 library(ggplot2)
-ggplot(postablefilter,aes(Var1,Freq))+geom_bar(stat="identity", fill="lightblue")+theme_bw()+labs(x="Positive Words", y="Frequency of Words",title=paste("Major Positive Words And Occurace in #UCSB Twitter Feed"))+geom_text(aes(Var1,Freq,label=Freq), size=6)+ theme(plot.title = element_text(size=18))+theme(axis.text=element_text(size=8))+theme(axis.text=element_text(size=14), axis.title=element_text(size=16,face="bold"))
+
+ggplot(postablefilter,aes(Var1,Freq))+geom_bar(stat="identity", fill="lightblue")+theme_bw()
++labs(x="Positive Words", y="Frequency of Words",title=paste("Major Positive Words And Occurace in #UCSB Twitter Feed"))
++geom_text(aes(Var1,Freq,label=Freq), size=6)+ theme(plot.title = element_text(size=18))+theme(axis.text=element_text(size=8))
++theme(axis.text=element_text(size=14), axis.title=element_text(size=16,face="bold"))
 
 library(wordcloud)
 twittercorpus=Corpus(VectorSource(cleantweet))
