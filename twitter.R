@@ -84,7 +84,7 @@ for(i in 1:length(cleantweet)){
 }
 head(posdata.vector,10)
 postable=data.frame(table(unlist(posdata.vector)))
-postablefilter=postable[which(postable$Freq&gt;15),]
+postablefilter=postable[which(postable$Freq > 15),]
 postablefilter[1]=lapply(postablefilter[1],as.character)
 
 library(ggplot2)
